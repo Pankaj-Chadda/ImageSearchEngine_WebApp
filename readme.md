@@ -1,6 +1,6 @@
 
 # Image Search Engine 
-I have created a web application to search for the image. The images are fetch using API created in https://unsplash.com
+I have created a web application to search for the image. The images are fetched using API created in https://unsplash.com
 
 
 
