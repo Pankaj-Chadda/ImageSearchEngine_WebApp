@@ -8,37 +8,41 @@ const showMoreBtn = document.getElementById("show-more-btn");
 
 let keyword = "";
 let page = 1;
-async function searchImages()
-{
-    keyword = searchBox.value;
-    const url = `https://api.unsplash.com/search/photos?page=${page}&query=${keyword}&client_id=${accessKey}&per_page=12`;
 
-    const response = await fetch(url);
-    const data = await response.json();
-    // console.log(data);
-    if(page == 1)
-    {
-        searchResult.innerHTML = "";
-    }
-    const results = data.results;
-    results.map((result) =>{
-        const image = document.createElement("img");
-        image.src = result.urls.small;
-        const imageLink = document.createElement("a");
-        imageLink.href = result.links.html;
-        imageLink.target = "_blank";
+async function searchImages() {
+  keyword = searchBox.value;
+  const url = `https://api.unsplash.com/search/photos?page=${page}&query=${keyword}&client_id=${accessKey}&per_page=12`;
 
-        imageLink.appendChild(image);
-        searchResult.appendChild(imageLink);
-    })
-    showMoreBtn.style.display = "block";
+  const response = await fetch(url);
+  const data = await response.json();
+  if (page === 1) {
+    searchResult.innerHTML = "";
+  }
+  const results = data.results;
+  results.forEach((result) => {
+    const image = document.createElement("img");
+    image.src = result.urls.small;
+    const imageLink = document.createElement("a");
+    imageLink.href = result.links.html;
+    imageLink.target = "_blank";
+
+    const imageContainer = document.createElement("div");
+    imageContainer.classList.add("image-container");
+
+    imageLink.appendChild(image);
+    imageContainer.appendChild(imageLink);
+    searchResult.appendChild(imageContainer);
+  });
+  showMoreBtn.style.display = "block";
 }
-searchForm.addEventListener("submit" , (e) =>{
-    e.preventDefault();
-    page = 1;
-    searchImages();
+
+searchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  page = 1;
+  searchImages();
 });
-showMoreBtn.addEventListener("click", ()=>{
-    page++;
-    searchImages();
+
+showMoreBtn.addEventListener("click", () => {
+  page++;
+  searchImages();
 });
