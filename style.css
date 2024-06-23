@@ -85,6 +85,7 @@ h1 {
   #search-result {
     display: flex;
     flex-direction: column;
+    margin: auto;
   }
 }
 
